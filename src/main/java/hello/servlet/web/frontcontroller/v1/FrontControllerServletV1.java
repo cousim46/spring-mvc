@@ -22,6 +22,7 @@ public class FrontControllerServletV1 extends HttpServlet {
         controllerMap.put("/front-controller/v1/members/new-form", new MemberFormControllerV1());
         controllerMap.put("/front-controller/v1/members/save", new MemberSaveController());
         controllerMap.put("/front-controller/v1/members", new MemberListControllerV1());
+        System.out.println("생성자호출");
     }
 
     @Override
@@ -29,7 +30,7 @@ public class FrontControllerServletV1 extends HttpServlet {
         System.out.println("FrontControllerServletV1.service");
 
         String requestURI = request.getRequestURI();
-
+        System.out.println("requestURI = " + requestURI);
         ControllerV1 controller = controllerMap.get(requestURI);
         if(controller == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
