@@ -53,14 +53,19 @@ public class FrontControllerServletV5 extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 핸들러 매핑 조회
         Object handler = getHandler(request);
 
-
+        // 핸들러 어댑터 목록 확인
         MyHandlerAdapter adapter = getHandlerAdapter(handler);
 
+        // 어댑터 목록에서 가져온 어댑터를 핸들러 어댑터로 등록하고 해당하는 Controller.handle를
+        // 실행후 ModelView 반환
         ModelView mv = adapter.handle(request, response, handler);
 
+        //반환받은 ModelView를 뷰 리졸버를 호출하고 MyView를 반환
         MyView view = viewResolver( mv.getViewName());
+        //반환받은 MyView로 rendder 후 응답
         view.rendder(mv.getModel(),request,response);
 
     }
